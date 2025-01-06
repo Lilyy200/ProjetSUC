@@ -28,11 +28,11 @@ def _gen_triangle(offset_x, offset_y, pattern_size) -> mf.MinePattern:
     orientation_x = random.choice((1, -1))
     orientation_y = random.choice((1, -1))
     
-    for i in range(pattern_size // 3):
-        for j in range(i + 1):
-            mine_offset_x = random.randint(-1, 1) + i * 3
+    for i in range(0,pattern_size, 4):
+        for j in range(0,i + 1,4):
+            mine_offset_x = random.randint(-1, 1) + i
             mine_offset_x = mine_offset_x if orientation_x == 1 else pattern_size - mine_offset_x
-            mine_offset_y = random.randint(-1, 1) + j * 3
+            mine_offset_y = random.randint(-1, 1) + j 
             mine_offset_y = mine_offset_y if orientation_y == 1 else pattern_size - mine_offset_y
             mine_x = offset_x + mine_offset_x
             mine_y = offset_y + mine_offset_y
@@ -43,8 +43,8 @@ def _gen_triangle(offset_x, offset_y, pattern_size) -> mf.MinePattern:
 def _gen_square(offset_x, offset_y, pattern_size) -> mf.MinePattern:
     mines = []
 
-    for i in range(0, pattern_size, 3):
-        for j in range(0, pattern_size, 3):
+    for i in range(0, pattern_size, 4):
+        for j in range(0, pattern_size, 4):
             mine_offset_x = random.randint(-1, 1) + i
             mine_offset_y = random.randint(-1, 1) + j
             mine_x = offset_x + mine_offset_x
@@ -56,11 +56,11 @@ def _gen_square(offset_x, offset_y, pattern_size) -> mf.MinePattern:
 def _gen_cross(offset_x, offset_y, pattern_size) -> mf.MinePattern:
     mines = []
 
-    for i in range(pattern_size // 2):
-        mine_offset_x1 = random.randint(-1, 1) + i * 2
-        mine_offset_x2 = random.randint(-1, 1) + i * 2
-        mine_offset_y1 = random.randint(-1, 1) + i * 2
-        mine_offset_y2 = random.randint(-1, 1) + pattern_size - i * 2 - 1
+    for i in range(0,pattern_size, 3):
+        mine_offset_x1 = random.randint(-1, 1) + i 
+        mine_offset_x2 = random.randint(-1, 1) + i 
+        mine_offset_y1 = random.randint(-1, 1) + i 
+        mine_offset_y2 = random.randint(-1, 1) + pattern_size - i  - 1
         mine_x1 = offset_x + mine_offset_x1
         mine_x2 = offset_x + mine_offset_x2
         mine_y1 = offset_y + mine_offset_y1
@@ -129,7 +129,7 @@ def gen_mine_field(max_x = 128, max_y = 128, pattern_size = 20, pattern_count = 
         else:
             raise Exception(f'Unknown pattern type {pattern_type}')
 
-    noise_max = (max_x + max_y) // 2
+    noise_max = (max_x + max_y) // 1.5
 
     for _ in range(random.randint(noise_max // 2, noise_max)):
         noise_x = random.randint(0, max_x)

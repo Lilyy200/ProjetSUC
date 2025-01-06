@@ -7,7 +7,7 @@ from PIL import ImageDraw
 
 p_size = 20
 field = mfg.gen_mine_field(pattern_count=5, pattern_size=p_size)
-image = mfd.to_image(field)
+image = mfd.to_image(field).convert('RGB')
 draw = ImageDraw.Draw(image)
 
 for pattern in field.patterns:
