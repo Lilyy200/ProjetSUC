@@ -18,9 +18,7 @@ def _find_densest_zone_1D(values, zone_size) -> int:
 
     m = 0
     i = -1
-
-    print(len(hist))
-
+    
     for j in range(len(hist) - zone_size + 1):
         s = sum(hist[j:j+zone_size])
 
