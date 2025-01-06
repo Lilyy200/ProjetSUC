@@ -6,7 +6,7 @@ import mine_field_drawer as mfd
 from PIL import ImageDraw
 
 p_size = 20
-field = mfg.gen_mine_field(pattern_count=6, pattern_size=p_size)
+field = mfg.gen_mine_field(pattern_count=5, pattern_size=p_size)
 image = mfd.to_image(field)
 draw = ImageDraw.Draw(image)
 

@@ -10,4 +10,4 @@ def to_image(mf: mf.MineField) -> Image:
         y = point.y
         draw.ellipse((x, y, x + 2, y + 2), fill="black")
 
-    return image
+    return image.convert("L")
