@@ -34,7 +34,7 @@ def _find_densest_zone(points, zone_size) -> tuple[int, int]:
     y = _find_densest_zone_1D(tuple(p[1] for p in points), zone_size)
     return (x, y)
 
-def find_pattern(field: mf.MineField) -> list[tuple[int, int]]:
+def find_pattern(field: mf.MineField, resize=True):
     data = np.array([(p.x, p.y) for p in field.points()])
     eps = field.pattern_size / 2.5
     dbscan = DBSCAN(eps=eps, min_samples=7)
@@ -47,5 +47,14 @@ def find_pattern(field: mf.MineField) -> list[tuple[int, int]]:
             continue
 
         clusters[label].append(point)
-    
-    return [_find_densest_zone(cluster, field.pattern_size) for cluster in clusters]
+        
+    if resize:
+        return [_find_densest_zone(cluster, field.pattern_size) for cluster in clusters]
+    else:
+        return [((
+            min(v[0] for v in cluster),
+            min(v[1] for v in cluster)
+        ),(
+            max(v[0] for v in cluster),
+            max(v[1] for v in cluster)
+        )) for cluster in clusters]
