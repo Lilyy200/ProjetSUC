@@ -39,18 +39,21 @@ def get_trained_model(nb_field=1000):
 
 def find_pattern(model, field: mf.MineField):
     image = mfd.to_image(field)
-    image_rgb = image.convert('RGB')
+    scale = 10
+    image_rgb = image.resize((field.max_x * scale, field.max_y * scale)).convert('RGB')
     draw = ImageDraw.Draw(image_rgb)
     p_size = field.pattern_size
 
     for xy1 in pf.find_pattern(field):
         xy1 = (xy1[0] - 1, xy1[1] - 1)
         xy2 = (xy1[0] + p_size + 2, xy1[1] + p_size + 2)
-        pattern_img = image.crop((xy1[0] + 1, xy1[1] + 1, xy2[0] - 2, xy2[1]) - 2)
-        draw.rectangle(xy=(xy1, xy2), outline='red')
+        xy1 = (v * scale for v in xy1)
+        xy2 = (v * scale for v in xy2)
+        pattern_img = image.crop((xy1[0] + scale, xy1[1] + scale, xy2[0] - 2 * scale, xy2[1]) - 2 * scale)
+        draw.rectangle(xy=(xy1, xy2), outline='red', width=scale)
         x = np.array(np.array([pattern_img]) == 0)
         y = model.predict(x)
         shape = mf.MinePatternType(np.argmax(y) + 1)
-        draw.text(xy=(xy2[0] + 5, xy1[1] + p_size / 2), text=f'{shape.name} ({int(max(y) * 100)}%)')
+        draw.text(xy=(xy2[0] + 5 * scale, xy1[1] + (scale * p_size) // 2), text=f'{shape.name} ({int(max(y) * 100)}%)')
         
     return image
