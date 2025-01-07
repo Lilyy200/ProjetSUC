@@ -1,5 +1,9 @@
-CNN et CNN2
+## Security Use Cases Project
 
-CNN utilise des labels avec les pattern prédéfinis (il faudrait les chnager et mettre des X, des lignes et des courbes, je pense qu'il faut oublier les triangles etc pour être plus réalistes)
+### Pattern recognition
 
-CNN2 ne fonctionne pas encore mais j'aimerai que le modèle devine des pattern en devinant où sont toutes les bombes (ils prendrait en compte tous les points, les points de bruit seraient des bombes aussi)
+#### quick run 
+
+In order to test the code, you must set up the needed environment.
+
+Once done, you run cnnV2.ipynb and and test.ipynb to take a look at the results.
