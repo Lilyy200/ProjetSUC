@@ -74,7 +74,7 @@ def _gen_circle(offset_x, offset_y, pattern_size) -> mf.MinePattern:
     mines = []
     radius = pattern_size / 2
 
-    for i in range(0, pattern_size, 3):
+    for i in range(0, pattern_size,4):
         sin = (i - radius) / radius
         cos = (1 - sin**2)**0.5 
 
@@ -129,7 +129,7 @@ def gen_mine_field(max_x = 128, max_y = 128, pattern_size = 20, pattern_count = 
         else:
             raise Exception(f'Unknown pattern type {pattern_type}')
 
-    noise_max = (max_x + max_y) // 1.5
+    noise_max = (max_x + max_y) // 1.2
 
     for _ in range(random.randint(noise_max // 2, noise_max)):
         noise_x = random.randint(0, max_x)
